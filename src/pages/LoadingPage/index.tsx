@@ -31,7 +31,7 @@ function LoadingPage({ callback }: LoadingPageProps) {
   const finalRef = useRef(null);
   const toast = useToast();
 
-  useEffect(onOpen, []);
+  useEffect(onOpen, [onOpen]);
 
   const login = () => {
     // login here

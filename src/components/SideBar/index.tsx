@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Tab,
   Tabs,
@@ -9,14 +10,13 @@ import {
   AvatarBadge,
   Stack,
 } from '@chakra-ui/react';
-import React from 'react';
 import './index.scss';
 
-export default function SideBar() {
+function SideBar() {
   return <div className="app-sidebar">
     <Stack 
       className="title" 
-      direction='row' 
+      direction="row" 
       spacing={4} 
       align="center"
     >
@@ -45,3 +45,5 @@ export default function SideBar() {
     </Tabs>
   </div>;
 }
+
+export default SideBar;
