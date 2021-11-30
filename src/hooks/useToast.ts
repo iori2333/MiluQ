@@ -7,7 +7,7 @@ export default function useToast() {
   const toast = useChakraToast();
   const core = (status: 'info' | 'warning' | 'success' | 'error') =>
     (description: string, title?: string, options?: UseToastOptions) => toast({
-      title: title || 'MiluQ',
+      title,
       description,
       status,
       position: 'top',

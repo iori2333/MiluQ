@@ -1,0 +1,27 @@
+@import '../../styles.scss';
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: $container-width;
+  height: 100%;
+  padding: 0 $padding-value;
+  position: absolute;
+  left: $sider-width;
+
+  .app-titlebar {
+    height: $title-height;
+    position: fixed;
+    width: inherit;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    padding: 0 16px;
+  }
+
+  .app-content {
+    top: $title-height;
+    width: 100%;
+    position: absolute;
+  }
+}

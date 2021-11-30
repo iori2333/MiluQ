@@ -1,0 +1,28 @@
+@import '../../styles.scss';
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - $title-height);
+  padding: $padding-value 0;
+
+  .chat-content {
+    bottom: 64px;
+    &:after {
+      content: '';
+      display: block;
+      height: 64px;
+    }
+  }
+
+  .bottom-bar {
+    height: 64px;
+    position: fixed;
+    bottom: 0;
+    padding: 0 $padding-value;
+    z-index: 100;
+    width: $container-width;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+  }
+}

@@ -1,9 +1,9 @@
 import { useInterval } from '@chakra-ui/hooks';
 import React, { useState } from 'react';
 
-import AppContainer from './components/AppContainer';
-import SideBar from './components/SideBar';
+import AppContainer from './pages/AppContainer';
 import LoadingPage from './pages/LoadingPage';
+import SideBar from './components/SideBar';
 
 function App() {
   useInterval(() => console.log('Check online'), 120000);

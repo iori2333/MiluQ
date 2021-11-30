@@ -1,0 +1,30 @@
+.message-tile {
+  padding: 8px 8px;
+
+  .role-sign {
+    display: flex;
+    align-items: baseline;
+
+    .name-text {
+      color: gray.500;
+      font-weight: bold;
+      letter-spacing:normal;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+  }
+
+  .user-message {
+    // margin-top: 4px;
+    padding: 4px;
+    line-height: tight;
+    
+    .text-content {
+      padding: 8px;
+      margin: 0 4px;
+      word-break: break-all;
+      border-width: 1px;
+      border-radius: 8px;
+    }
+  }
+}
