@@ -1,0 +1,17 @@
+@import '../styles.scss';
+
+.app-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 $padding-value;
+  width: $sider-width;
+  height: 100%;
+
+  .title {
+    padding: $padding-value;
+    top: 0;
+  }
+}
