@@ -1,0 +1,24 @@
+import {
+  useToast as chakraUseToast,
+  UseToastOptions
+} from '@chakra-ui/react';
+
+export default function useToast() {
+  const toast = chakraUseToast();
+  const core = (status: 'info' | 'warning' | 'success' | 'error') =>
+    (description: string, title?: string, options?: UseToastOptions) => toast({
+      title: title || 'MiluQ',
+      description,
+      status,
+      position: 'top',
+      duration: 3000,
+      ...options
+    });
+
+  return {
+    success: core('success'),
+    warning: core('warning'),
+    error: core('error'),
+    info: core('info'),
+  };
+}
