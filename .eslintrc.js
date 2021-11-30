@@ -19,6 +19,7 @@ module.exports = {
   },
   'plugins': [
     'react',
+    'react-hooks',
     '@typescript-eslint'
   ],
   'rules': {
@@ -33,6 +34,9 @@ module.exports = {
     'semi': [
       'warn',
       'always'
-    ]
+    ],
+    '@typescript-eslint/no-empty-function': 'off',
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn' // Checks effect dependencies
   }
 };
