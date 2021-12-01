@@ -11,6 +11,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import './index.scss';
+import { Link } from 'react-router-dom';
 
 function SideBar() {
   return <div className="app-sidebar">
@@ -21,11 +22,11 @@ function SideBar() {
       align="center"
     >
       <Avatar>
-        <AvatarBadge boxSize='1.25em' bg='green.500' />
+        <AvatarBadge boxSize="1.25em" bg="green.500" />
       </Avatar>
-      <Input variant='filled' placeholder='Search dialogs' />
+      <Input variant="filled" placeholder="Search dialogs" />
     </Stack>
-    <Tabs variant='soft-rounded' colorScheme='green' isFitted>
+    <Tabs variant="soft-rounded" colorScheme="green" isFitted>
       <TabList>
         <Tab>Recent</Tab>
         <Tab>Friends</Tab>
@@ -33,7 +34,9 @@ function SideBar() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>Recent</p>
+          <nav>
+            <Link to="/g/114514">g114514</Link>
+          </nav>
         </TabPanel>
         <TabPanel>
           <p>Friends</p>

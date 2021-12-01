@@ -20,11 +20,11 @@ function MessageTile({ mine, role, avatar, name, content }: MessageProps) {
   const flex = mine ? 'row-reverse' : 'row';
   return <Box className="message-tile">
     {!mine && <Box className="role-sign" flexDirection={flex}>
-      {role && <Badge borderRadius='full' px={2} colorScheme='teal'>
+      {role && <Badge borderRadius="full" px={2} colorScheme="teal">
         {role}
       </Badge>
       }
-      <Box className='name-text'>
+      <Box className="name-text">
         {name}
       </Box>
     </Box>

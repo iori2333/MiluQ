@@ -19,7 +19,7 @@ function AppContainer() {
   return <div className="app-container">
     <Flex className="app-titlebar">
       <Stack spacing={4} direction="row" align="center">
-        <Avatar size='sm' />
+        <Avatar size="sm" />
         <Heading as="h2" size="md">
           Chat: {chat}
         </Heading>

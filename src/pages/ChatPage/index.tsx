@@ -49,13 +49,13 @@ function ChatPage({ isGroup }: ChatPageProps) {
       />
     </div>
     <Stack className="bottom-bar" spacing={4} direction="row" align="center">
-      <InputGroup size='md'>
+      <InputGroup size="md">
         <Input
-          pr='4.5rem'
-          type='text'
+          pr="4.5rem"
+          type="text"
         />
-        <InputRightElement width='4.5rem'>
-          <Button h='1.75rem' size='sm'>
+        <InputRightElement width="4.5rem">
+          <Button h="1.75rem" size="sm">
             ...
           </Button>
         </InputRightElement>

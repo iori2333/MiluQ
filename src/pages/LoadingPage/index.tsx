@@ -78,7 +78,7 @@ function LoadingPage({ callback }: LoadingPageProps) {
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={login}>
+          <Button colorScheme="blue" mr={3} onClick={login}>
             Login
           </Button>
         </ModalFooter>
