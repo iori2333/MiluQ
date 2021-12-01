@@ -3,11 +3,12 @@
 .chat-page {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - $title-height);
+  height: calc(100vh - #{$title-height});
   padding: $padding-value 0;
 
   .chat-content {
     bottom: 64px;
+
     &:after {
       content: '';
       display: block;

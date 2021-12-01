@@ -6,19 +6,18 @@
     align-items: baseline;
 
     .name-text {
-      color: gray.500;
+      color: gray;
       font-weight: bold;
-      letter-spacing:normal;
+      letter-spacing: normal;
       font-size: 12px;
       margin-left: 4px;
     }
   }
 
   .user-message {
-    // margin-top: 4px;
     padding: 4px;
-    line-height: tight;
-    
+    line-height: 24px;
+
     .text-content {
       padding: 8px;
       margin: 0 4px;
