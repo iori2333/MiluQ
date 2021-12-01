@@ -11,7 +11,12 @@ import { MdSend } from 'react-icons/md';
 import './index.scss';
 import MessageTile from '../../components/MessageTile';
 
-function ChatPage() {
+interface ChatPageProps {
+  isGroup: boolean
+}
+
+function ChatPage({ isGroup }: ChatPageProps) {
+  console.log(isGroup);
   return <div className="chat-page">
     <div className="chat-content">
       <MessageTile

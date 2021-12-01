@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router';
 import {
   Avatar,
   Flex,
@@ -8,16 +9,19 @@ import {
   IconButton
 } from '@chakra-ui/react';
 import { MdSettings, MdMore } from 'react-icons/md';
+
 import './index.scss';
-import ChatPage from '../ChatPage';
 
 function AppContainer() {
+  const { chat } = useParams();
+  const navigate = useNavigate();
+
   return <div className="app-container">
     <Flex className="app-titlebar">
       <Stack spacing={4} direction="row" align="center">
         <Avatar size='sm' />
         <Heading as="h2" size="md">
-          Chat
+          Chat: {chat}
         </Heading>
       </Stack>
       <Spacer />
@@ -25,7 +29,7 @@ function AppContainer() {
         <IconButton
           icon={<MdSettings />}
           aria-label="Settings"
-          onClick={() => { }}
+          onClick={() => navigate('/settings')}
         />
         <IconButton
           icon={<MdMore />}
@@ -35,7 +39,7 @@ function AppContainer() {
       </Stack>
     </Flex>
     <div className="app-content">
-      <ChatPage />
+      <Outlet />
     </div>
   </div>;
 }
