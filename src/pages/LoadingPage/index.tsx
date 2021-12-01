@@ -15,13 +15,13 @@ import {
   ModalOverlay,
   Spinner,
   Text,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 
 import useToast from '../../hooks/useToast';
 
 export interface LoadingPageProps {
-  callback: () => void
+  callback: () => void;
 }
 
 function LoadingPage({ callback }: LoadingPageProps) {
@@ -51,40 +51,42 @@ function LoadingPage({ callback }: LoadingPageProps) {
     }, 3000);
   };
 
-  return <Center bg="green.300" h="100vh" color="white">
-    <HStack spacing={4}>
-      <Spinner size="xl" />
-      <Text fontSize="xl">Loading MiluQ...</Text>
-    </HStack>
-    <Modal
-      initialFocusRef={serverRef}
-      finalFocusRef={finalRef}
-      closeOnOverlayClick={false}
-      isOpen={isOpen}
-      onClose={() => toast.warning('Please login first')}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Login to MiluQ</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <FormControl>
-            <FormLabel>Server address</FormLabel>
-            <Input ref={serverRef} placeholder="Server IP" />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Private Key</FormLabel>
-            <Input ref={keyRef} type="password" placeholder="Key" />
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={login}>
-            Login
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  </Center>;
+  return (
+    <Center bg="green.300" h="100vh" color="white">
+      <HStack spacing={4}>
+        <Spinner size="xl" />
+        <Text fontSize="xl">Loading MiluQ...</Text>
+      </HStack>
+      <Modal
+        initialFocusRef={serverRef}
+        finalFocusRef={finalRef}
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={() => toast.warning('Please login first')}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login to MiluQ</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Server address</FormLabel>
+              <Input ref={serverRef} placeholder="Server IP" />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Private Key</FormLabel>
+              <Input ref={keyRef} type="password" placeholder="Key" />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={login}>
+              Login
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Center>
+  );
 }
 
 export default LoadingPage;

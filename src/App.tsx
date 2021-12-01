@@ -9,12 +9,14 @@ function App() {
   useInterval(() => console.log('Check online'), 120000);
 
   const [loading, setLoading] = useState(true);
-  return loading ?
-    <LoadingPage callback={() => setLoading(false)} /> :
+  return loading ? (
+    <LoadingPage callback={() => setLoading(false)} />
+  ) : (
     <>
       <SideBar />
       <AppContainer />
-    </>;
+    </>
+  );
 }
 
 export default App;

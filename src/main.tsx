@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-
-} from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider as StoreProvider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 
