@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import AppContainer from './pages/AppContainer';
 import LoadingPage from './pages/LoadingPage';
-import SideBar from './components/SideBar';
+import AppSideBar from './pages/AppSideBar';
 
 function App() {
   useInterval(() => console.log('Check online'), 120000);
@@ -13,7 +13,7 @@ function App() {
     <LoadingPage callback={() => setLoading(false)} />
   ) : (
     <>
-      <SideBar />
+      <AppSideBar />
       <AppContainer />
     </>
   );
