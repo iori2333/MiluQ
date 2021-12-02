@@ -1,0 +1,20 @@
+@import '../../styles.scss';
+
+.chat-tile {
+  margin-bottom: 8px;
+  border-radius: 16px;
+  border-width: 1px;
+  padding: 12px 12px;
+  height: fit-content;
+  transition: all 0.2s;
+  display: flex;
+  text-overflow: ellipsis;
+  user-select: none;
+  -webkit-user-select: none;
+  background: $surface-background;
+  backdrop-filter: blur($blur-radius);
+
+  &:hover {
+    background: rgba(196, 252, 226, $opacity);
+  }
+}
