@@ -1,4 +1,7 @@
 $sider-width: max(25%, 300px);
 $padding-value: 8px;
 $title-height: 64px;
-$container-width: calc(100% - #{$sider-width} - #{$padding-value});
+$container-width: calc(100% - #{$sider-width});
+$blur-radius: 24px;
+$opacity: 0.4;
+$surface-background: rgba(240, 240, 240, $opacity);

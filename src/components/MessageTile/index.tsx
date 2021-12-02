@@ -27,7 +27,12 @@ function MessageTile({ mine, role, avatar, name, content }: MessageProps) {
       <Box className="user-message">
         <Flex flexDirection={flex} align="center">
           <Avatar showBorder name={name} src={avatar} />
-          <Text className="text-content">{content}</Text>
+          <Text
+            className="text-content"
+            borderRadius={mine ? '8px 8px 0 8px' : '8px 8px 8px 0'}
+          >
+            {content}
+          </Text>
         </Flex>
       </Box>
     </Box>
