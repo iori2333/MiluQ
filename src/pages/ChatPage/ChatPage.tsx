@@ -1,22 +1,57 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   IconButton,
-  Button,
-  InputGroup,
-  InputRightElement,
-  Input,
-  Stack
+  Stack,
+  Flex,
+  Avatar,
+  Heading,
+  Spacer
 } from '@chakra-ui/react';
-import { MdSend } from 'react-icons/md';
+import { MdMore, MdSettings } from 'react-icons/md';
+
 import MessageTile from '../../components/MessageTile';
+import ChatInput from '../../components/ChatInput';
 
 export interface ChatPageProps {
   isGroup: boolean;
 }
 
+function ChatTitle() {
+  const navigate = useNavigate();
+  return (
+    <>
+      <Stack spacing={4} direction="row" align="center">
+        <Avatar size="sm" />
+        <Heading as="h2" size="md">
+          Chat
+        </Heading>
+      </Stack>
+      <Spacer />
+      <Stack spacing={3} direction="row" align="center">
+        <IconButton
+          icon={<MdSettings />}
+          aria-label="Settings"
+          onClick={() => navigate('/settings')}
+        />
+        <IconButton
+          icon={<MdMore />}
+          aria-label="More"
+          onClick={() => {
+            console.log('More');
+          }}
+        />
+      </Stack>
+    </>
+  );
+}
+
 function ChatPage({ isGroup }: ChatPageProps) {
   return (
     <div className="chat-page">
+      <Flex className="chat-title">
+        <ChatTitle />
+      </Flex>
       <div className="chat-content">
         <MessageTile
           role="admin"
@@ -47,16 +82,8 @@ function ChatPage({ isGroup }: ChatPageProps) {
           mine={true}
         />
       </div>
-      <Stack className="bottom-bar" spacing={4} direction="row" align="center">
-        <InputGroup size="md">
-          <Input pr="4.5rem" type="text" />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm">
-              ...
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-        <IconButton icon={<MdSend />} onClick={() => {}} aria-label="send" />
+      <Stack className="chat-bottom" spacing={2} direction="row" align="center">
+        <ChatInput />
       </Stack>
     </div>
   );

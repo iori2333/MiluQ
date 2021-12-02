@@ -1,29 +1,45 @@
 @import '../../styles.scss';
 
+$bottom-height: 64px;
+
 .chat-page {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - #{$title-height});
-  padding: $padding-value 0;
+
+  .chat-title {
+    height: $title-height;
+    position: fixed;
+    width: $container-width;
+    z-index: 100;
+    border-bottom-width: 1px;
+    background-color: $surface-background;
+    backdrop-filter: blur($blur-radius);
+    padding: 0 16px;
+  }
 
   .chat-content {
-    bottom: 64px;
-
     &:after {
       content: '';
       display: block;
-      height: 64px;
+      height: $title-height;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      height: $bottom-height;
     }
   }
 
-  .bottom-bar {
-    height: 64px;
+  .chat-bottom {
+    height: $bottom-height;
     position: fixed;
     bottom: 0;
-    padding: 0 $padding-value;
+    padding: $padding-value;
     z-index: 100;
     width: $container-width;
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
+    border-top-width: 1px;
+    background-color: rgba(255, 255, 255, $opacity);
+    backdrop-filter: blur($blur-radius);
   }
 }
