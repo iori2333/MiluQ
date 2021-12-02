@@ -34,21 +34,37 @@ function AppSideBar() {
 
   return (
     <div className="app-sidebar">
-      <Stack className="title" direction="row" spacing={4} align="center">
-        <Avatar>
+      <Stack className="side-title" direction="row" spacing={4} align="center">
+        <Avatar size="sm">
           <AvatarBadge boxSize="1.25em" bg="green.500" />
         </Avatar>
         <Input variant="filled" placeholder="Search dialogs" />
       </Stack>
-      <Tabs variant="soft-rounded" colorScheme="green" isFitted>
+      <Tabs
+        className="side-panel"
+        variant="soft-rounded"
+        colorScheme="green"
+        isFitted
+      >
         <TabList>
           <Tab>Recent</Tab>
           <Tab>Friends</Tab>
           <Tab>Groups</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel pl={2} pr={2}>
             <ChatTile {...prop} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
+            <ChatTile {...prop2} />
             <ChatTile {...prop2} />
           </TabPanel>
           <TabPanel>

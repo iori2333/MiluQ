@@ -6,6 +6,28 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    z-index: 2000;
+
+    &:hover {
+      background: hsla(0, 0%, 95%, 0.75);
+    }
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsla(0, 0%, 90%, 0.75);
+    border-radius: 5px;
+
+    &:hover {
+      background: hsla(0, 0%, 70%, 0.75);
+    }
+  }
 }
 
 code {

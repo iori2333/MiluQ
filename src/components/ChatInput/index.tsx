@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import {
   IconButton,
   Input,
@@ -6,8 +6,19 @@ import {
   InputRightElement
 } from '@chakra-ui/react';
 import { MdSend, MdMoreHoriz } from 'react-icons/md';
+import { ChatContext } from '../../pages/ChatPage';
+import { AppContext } from '../../pages/AppContainer';
 
 function ChatInput() {
+  const { dispatch } = useContext(ChatContext);
+  const { scrollTop } = useContext(AppContext);
+  const payload = {
+    avatar: '',
+    content: 'abcd',
+    role: 'admin',
+    name: 'Iori',
+    mine: true
+  };
   return (
     <>
       <InputGroup size="md">
@@ -19,7 +30,8 @@ function ChatInput() {
       <IconButton
         icon={<MdSend />}
         onClick={() => {
-          console.log('send');
+          scrollTop();
+          dispatch({ message: payload });
         }}
         aria-label="send"
       />

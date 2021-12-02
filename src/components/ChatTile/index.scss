@@ -2,7 +2,7 @@
 
 .chat-tile {
   margin-bottom: 8px;
-  border-radius: 16px;
+  border-radius: 12px;
   border-width: 1px;
   padding: 12px 12px;
   height: fit-content;
@@ -12,9 +12,9 @@
   user-select: none;
   -webkit-user-select: none;
   background: $surface-background;
-  backdrop-filter: blur($blur-radius);
 
   &:hover {
     background: rgba(196, 252, 226, $opacity);
+    border-color: #ceffe6;
   }
 }

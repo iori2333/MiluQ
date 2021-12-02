@@ -4,8 +4,9 @@
   display: flex;
   flex-direction: column;
   width: $container-width;
-  height: 100%;
-  position: absolute;
+  height: 100vh;
+  position: fixed;
+  overflow-y: auto;
   left: $sider-width;
   padding: 0;
 }
