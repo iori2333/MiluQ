@@ -17,8 +17,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="settings" element={<div>Settings</div>} />
-              <Route path="g/:chat" element={<ChatPage.Group />} />
-              <Route path="p/:chat" element={<ChatPage.Private />} />
+              <Route path=":type/:chat" element={<ChatPage />} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Route>
           </Routes>
