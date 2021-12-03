@@ -1,6 +1,13 @@
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Heading, IconButton, Spacer, Stack } from '@chakra-ui/react';
+import {
+  Avatar,
+  ButtonGroup,
+  Heading,
+  IconButton,
+  Spacer,
+  Stack
+} from '@chakra-ui/react';
 import { MdMore, MdSettings } from 'react-icons/md';
 
 function ChatTitle() {
@@ -14,7 +21,7 @@ function ChatTitle() {
         </Heading>
       </Stack>
       <Spacer />
-      <Stack spacing={3} direction="row" align="center">
+      <ButtonGroup alignItems="center">
         <IconButton
           icon={<MdSettings />}
           aria-label="Settings"
@@ -27,7 +34,7 @@ function ChatTitle() {
             console.log('More');
           }}
         />
-      </Stack>
+      </ButtonGroup>
     </>
   );
 }

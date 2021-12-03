@@ -55,17 +55,6 @@ function AppSideBar() {
           <TabPanel pl={2} pr={2}>
             <ChatTile {...prop} />
             <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
-            <ChatTile {...prop2} />
           </TabPanel>
           <TabPanel>
             <p>Friends</p>
