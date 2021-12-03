@@ -9,4 +9,9 @@
   overflow-y: auto;
   left: $sider-width;
   padding: 0;
+
+  &::-webkit-scrollbar-track {
+    margin-top: $title-height;
+    margin-bottom: $bottom-height;
+  }
 }
