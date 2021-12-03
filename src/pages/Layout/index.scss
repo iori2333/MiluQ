@@ -1,41 +1,43 @@
 @import '../../styles.scss';
 
-$bottom-height: 64px;
-
-.chat-page {
+.layout-container {
+  display: flex;
   flex-direction: column;
 
-  .chat-title {
+  .layout-title {
+    display: flex;
     height: $title-height;
     position: fixed;
     width: $container-width;
-    z-index: 100;
+    z-index: $z-top;
     border-bottom-width: 1px;
     background-color: $surface-background;
     backdrop-filter: blur($blur-radius);
     padding: 0 16px;
   }
 
-  .chat-content {
-    &:after {
-      content: '';
-      display: block;
-      height: $title-height;
-    }
-
+  .layout-content {
     &:before {
       content: '';
       display: block;
       height: $bottom-height;
     }
+
+    &.use-bottom:after {
+      content: '';
+      display: block;
+      height: $title-height;
+    }
   }
 
-  .chat-bottom {
+  .layout-bottom {
     height: $bottom-height;
+    display: flex;
     position: fixed;
+    align-items: center;
     bottom: 0;
     padding: $padding-value;
-    z-index: 100;
+    z-index: $z-top;
     width: $container-width;
     border-top-width: 1px;
     background-color: rgba(255, 255, 255, $opacity);

@@ -1,14 +1,12 @@
 import React, { createContext, useReducer } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Stack, Flex, Box } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
 
+import Layout from '../Layout';
 import MessageTile, { MessageProps } from '../../components/MessageTile';
 import ChatInput from '../../components/ChatInput';
 import ChatTitle from '../../components/ChatTitle';
 import useChatInfo from '../../hooks/useChatInfo';
-
-import './index.scss';
 
 export const ChatContext = createContext<{
   chatType: 'g' | 'p';
@@ -42,24 +40,19 @@ function ChatPage() {
     <ChatContext.Provider
       value={{ chatType, chatId, dispatch: dispatchMessages }}
     >
-      <Flex className="chat-page">
-        <Flex className="chat-title">
+      <Layout.Container>
+        <Layout.Title>
           <ChatTitle />
-        </Flex>
-        <Box className="chat-content">
+        </Layout.Title>
+        <Layout.Content useBottom>
           {state.messages.map(props => (
             <MessageTile key={nanoid()} {...props} />
           ))}
-        </Box>
-        <Stack
-          className="chat-bottom"
-          spacing={2}
-          direction="row"
-          align="center"
-        >
+        </Layout.Content>
+        <Layout.Bottom>
           <ChatInput />
-        </Stack>
-      </Flex>
+        </Layout.Bottom>
+      </Layout.Container>
     </ChatContext.Provider>
   );
 }
