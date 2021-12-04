@@ -15,40 +15,48 @@ import {
   ModalOverlay,
   Spinner,
   Text,
-  useDisclosure
+  useDisclosure,
+  useTimeout
 } from '@chakra-ui/react';
 
 import useToast from '../../hooks/useToast';
+import { convertMd5 } from '../../utils/encrypt';
+import useClient from '../../hooks/useClient';
 
 export interface LoadingPageProps {
-  callback: () => void;
+  setOnline: (online: boolean) => void;
 }
 
-function LoadingPage({ callback }: LoadingPageProps) {
+function LoadingPage({ setOnline }: LoadingPageProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const serverRef = useRef<HTMLInputElement>(null);
-  const keyRef = useRef<HTMLInputElement>(null);
-  const finalRef = useRef(null);
+  const uinRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const toast = useToast();
+  const client = useClient();
+
+  useTimeout(() => {
+    toast.warning(
+      'This may due to network issues. Try refreshing this page?',
+      'Login costs more time than expected',
+      { duration: 8000 }
+    );
+  }, 30000);
 
   useEffect(onOpen, [onOpen]);
 
   const login = () => {
-    // login here
-    const server = serverRef.current?.value;
-    const key = keyRef.current?.value;
-    if (!server || !key) {
+    const uin = uinRef.current?.value;
+    const password = passwordRef.current?.value;
+    if (!uin || !password) {
       toast.warning('Login failed');
       return;
     }
-    console.log(server, key);
-    toast.info('Connecting to server');
     onClose();
-
-    setTimeout(() => {
-      callback();
+    toast.info('Connecting to server');
+    client.login(parseInt(uin), convertMd5(password), () => {
+      setOnline(true);
       toast.success('Online');
-    }, 3000);
+    });
   };
 
   return (
@@ -58,8 +66,7 @@ function LoadingPage({ callback }: LoadingPageProps) {
         <Text fontSize="xl">Loading MiluQ...</Text>
       </HStack>
       <Modal
-        initialFocusRef={serverRef}
-        finalFocusRef={finalRef}
+        initialFocusRef={uinRef}
         closeOnOverlayClick={false}
         isOpen={isOpen}
         onClose={() => toast.warning('Please login first')}
@@ -70,12 +77,16 @@ function LoadingPage({ callback }: LoadingPageProps) {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Server address</FormLabel>
-              <Input ref={serverRef} placeholder="Server IP" />
+              <FormLabel>QQ</FormLabel>
+              <Input ref={uinRef} placeholder="Server IP" />
             </FormControl>
             <FormControl mt={4}>
-              <FormLabel>Private Key</FormLabel>
-              <Input ref={keyRef} type="password" placeholder="Key" />
+              <FormLabel>Password</FormLabel>
+              <Input
+                ref={passwordRef}
+                type="password"
+                placeholder="Enter Password"
+              />
             </FormControl>
           </ModalBody>
           <ModalFooter>

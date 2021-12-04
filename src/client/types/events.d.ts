@@ -72,10 +72,7 @@ export interface MessageEvent {
 export interface PrivateMessageEvent extends PrivateMessage, MessageEvent {}
 
 /** 群消息事件 */
-export interface GroupMessageEvent extends GroupMessage, MessageEvent {
-  /** 快速撤回 */
-  recall(): Promise<boolean>;
-}
+export interface GroupMessageEvent extends GroupMessage, MessageEvent {}
 
 export interface RequestEvent {
   post_type: 'request';

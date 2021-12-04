@@ -35,7 +35,7 @@ function ChatInput() {
       name: 'Iori',
       mine: true
     } as MessageProps;
-    dispatch({ message });
+    dispatch({ extras: message });
     contentRef.current.value = '';
   };
 

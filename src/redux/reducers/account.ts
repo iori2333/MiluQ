@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Client from '../../client/client';
+import { ChatTileProp } from '../../components/ChatTile';
 
 const accountSlice = createSlice({
   name: 'account',
   initialState: {
-    on: false
+    client: new Client(),
+    recent: [] as ChatTileProp[]
   },
   reducers: {
-    update(state, action: PayloadAction<boolean>) {
-      state.on = action.payload;
+    addRecent(state, action: PayloadAction<ChatTileProp[]>) {
+      state.recent.push(...action.payload);
     }
   }
 });
 
-export const { update } = accountSlice.actions;
+export const { addRecent } = accountSlice.actions;
 export default accountSlice.reducer;

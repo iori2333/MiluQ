@@ -1,4 +1,3 @@
-import { useInterval } from '@chakra-ui/hooks';
 import React, { useState } from 'react';
 
 import AppContainer from './pages/AppContainer';
@@ -6,16 +5,14 @@ import LoadingPage from './pages/LoadingPage';
 import AppSideBar from './pages/AppSideBar';
 
 function App() {
-  useInterval(() => console.log('Check online'), 120000);
-
-  const [loading, setLoading] = useState(true);
-  return loading ? (
-    <LoadingPage callback={() => setLoading(false)} />
-  ) : (
+  const [online, setOnline] = useState(false);
+  return online ? (
     <>
       <AppSideBar />
       <AppContainer />
     </>
+  ) : (
+    <LoadingPage setOnline={setOnline} />
   );
 }
 
