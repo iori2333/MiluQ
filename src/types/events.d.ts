@@ -227,6 +227,12 @@ export interface GroupTransferEvent extends GroupNoticeEvent {
   user_id: number;
 }
 
+export interface QueryResult {
+  chatId: number;
+  type: 'g' | 'p';
+  messages: PrivateMessage[] | GroupMessage[];
+}
+
 /** 事件地图 */
 export interface EventMap {
   /** 收到二维码 */
@@ -343,6 +349,7 @@ export interface EventMap {
   'internal.sso': (cmd: string, payload: Buffer, seq: number) => void;
   /** 隐藏事件: 对方正在输入 */
   'internal.input': (event: { user_id: number; end: boolean }) => void;
+  'miluq:messages.ret': (query: QueryResult) => void;
 }
 
 export declare type EmitType = keyof EventMap;

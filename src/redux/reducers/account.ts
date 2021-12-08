@@ -1,19 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Client from '../../client/client';
-import { ChatTileProp } from '../../components/ChatTile';
+import { ChatTileProp } from '../../types/props';
 
-const accountSlice = createSlice({
+export const accountSlice = createSlice({
   name: 'account',
   initialState: {
-    client: new Client(),
     recent: [] as ChatTileProp[]
   },
   reducers: {
-    addRecent(state, action: PayloadAction<ChatTileProp[]>) {
-      state.recent.push(...action.payload);
+    addRecent(state, action: PayloadAction<ChatTileProp>) {
+      state.recent.unshift(action.payload);
+    },
+    removeRecent(
+      state,
+      action: PayloadAction<{ type: 'g' | 'p'; chatId: number }>
+    ) {
+      const { type, chatId } = action.payload;
+      state.recent = state.recent.filter(
+        value => value.type != type || value.chatId != chatId
+      );
     }
   }
 });
 
-export const { addRecent } = accountSlice.actions;
+export const { addRecent, removeRecent } = accountSlice.actions;
 export default accountSlice.reducer;

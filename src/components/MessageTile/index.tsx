@@ -1,14 +1,7 @@
 import React, { memo } from 'react';
 import { Box, Avatar, Text, Badge, Flex } from '@chakra-ui/react';
 import './index.scss';
-
-export interface MessageProps {
-  name: string;
-  mine: boolean;
-  content: string;
-  avatar?: string;
-  role?: string;
-}
+import { MessageProps } from '../../types/props';
 
 function MessageTile({ mine, role, avatar, name, content }: MessageProps) {
   const flex = mine ? 'row-reverse' : 'row';

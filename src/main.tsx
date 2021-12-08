@@ -18,7 +18,8 @@ const Main = () => (
           <Route path="my" element={<div>My</div>} />
           <Route path="system" element={<div>System</div>} />
         </Route>
-        <Route path=":type/:chat" element={<ChatPage />} />
+        <Route path="g/:chat" element={<ChatPage.Group />} />
+        <Route path="p/:chat" element={<ChatPage.Private />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Route>
     </Routes>

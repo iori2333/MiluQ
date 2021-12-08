@@ -1,7 +1,7 @@
-import { useSelector } from '../redux';
+import client from '../client/client';
 
 function useClient() {
-  return useSelector(state => state.account).client;
+  return client;
 }
 
 export default useClient;

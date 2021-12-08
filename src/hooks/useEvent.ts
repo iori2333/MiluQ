@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { EventMap } from '../client/types/events';
+import { EventMap } from '../types/events';
 import useClient from './useClient';
 
 export default function useEvent<T extends keyof EventMap>(

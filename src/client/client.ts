@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
-import { EventMap } from './types/events';
-import { EmitMap } from './types/emits';
+import { EventMap } from '../types/events';
+import { EmitMap } from '../types/emits';
 
 const URL = 'http://localhost:5001/';
 
@@ -37,4 +37,4 @@ class Client {
   }
 }
 
-export default Client;
+export default new Client();

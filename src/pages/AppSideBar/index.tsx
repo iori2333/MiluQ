@@ -11,26 +11,35 @@ import {
   Stack
 } from '@chakra-ui/react';
 import './index.scss';
-import ChatTile, { ChatTileProp } from '../../components/ChatTile';
+import ChatTile from '../../components/ChatTile';
+import useTiles from '../../hooks/useTiles';
+import useEvent from '../../hooks/useEvent';
+import { nanoid } from 'nanoid';
 
 function AppSideBar() {
-  const prop: ChatTileProp = {
-    name: 'Iori',
-    message: '呃呃呃呃啊啊啊啊啊啊',
-    lastUpdate: 1638373032,
-    avatar: 'https://avatars.githubusercontent.com/u/81511507?v=4',
-    type: 'p',
-    chatId: 114514
-  };
-
-  const prop2: ChatTileProp = {
-    name: 'Inori',
-    message: 'pong!',
-    lastUpdate: 1638373832,
-    avatar: '',
-    type: 'p',
-    chatId: 1919810
-  };
+  const [tiles, addRecent, removeRecent] = useTiles();
+  useEvent('message.group', data => {
+    removeRecent({ type: 'g', chatId: data.group_id });
+    addRecent({
+      avatar: '',
+      chatId: data.group_id,
+      lastUpdate: data.time,
+      message: data.message.toString(),
+      name: data.group_name,
+      type: 'g'
+    });
+  });
+  useEvent('message.private', data => {
+    removeRecent({ type: 'p', chatId: data.from_id });
+    addRecent({
+      avatar: '',
+      chatId: data.from_id,
+      lastUpdate: data.time,
+      message: data.message.toString(),
+      name: data.nickname,
+      type: 'p'
+    });
+  });
 
   return (
     <div className="app-sidebar">
@@ -53,8 +62,9 @@ function AppSideBar() {
         </TabList>
         <TabPanels>
           <TabPanel pl={2} pr={2}>
-            <ChatTile {...prop} />
-            <ChatTile {...prop2} />
+            {tiles.map(props => (
+              <ChatTile key={nanoid()} {...props} />
+            ))}
           </TabPanel>
           <TabPanel>
             <p>Friends</p>

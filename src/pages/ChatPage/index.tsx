@@ -1,14 +1,12 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 import { Navigate } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 
-import Layout from '../Layout';
-import MessageTile, { MessageProps } from '../../components/MessageTile';
-import ChatInput from '../../components/ChatInput';
-import ChatTitle from '../../components/ChatTitle';
+import Page from './Page';
+import { MessageProps } from '../../types/props';
 import useChatInfo from '../../hooks/useChatInfo';
 import useClient from '../../hooks/useClient';
 import useEvent from '../../hooks/useEvent';
+import { GroupMessage } from '../../types/messages';
 
 export const ChatContext = createContext<{
   chatType: 'g' | 'p';
@@ -24,28 +22,27 @@ export const ChatContext = createContext<{
 
 const reducer = (
   state: { messages: MessageProps[] },
-  payload: { extras: MessageProps[] | MessageProps }
+  payload: { clean?: boolean; extras: MessageProps[] | MessageProps }
 ) => {
   return {
-    messages: state.messages.concat(payload.extras)
+    messages: payload.clean
+      ? ([] as MessageProps[]).concat(payload.extras)
+      : state.messages.concat(payload.extras)
   };
 };
 
-function ChatPage() {
-  const [chatType, chatId] = useChatInfo();
+function GroupChatPage() {
+  const [, chatId] = useChatInfo();
   const [state, dispatchMessages] = useReducer(reducer, { messages: [] });
   const client = useClient();
 
   useEffect(() => {
-    if (chatType)
-      client.emit('miluq:messages.query', {
-        type: chatType,
-        chatId
-      });
-  }, [chatId, chatType, client]);
+    dispatchMessages({ clean: true, extras: [] });
+    client.emit('miluq:messages.query', { type: 'g', chatId });
+  }, [chatId, client]);
 
   useEvent('message.group', data => {
-    if (chatType == 'g' && data.group_id == chatId) {
+    if (data.group_id == chatId) {
       dispatchMessages({
         extras: {
           name: data.sender.card || data.sender.nickname,
@@ -57,34 +54,66 @@ function ChatPage() {
     }
   });
 
-  useEvent('message.private', data => {
-    if (chatType == 'p' && data.user_id == chatId) {
-      dispatchMessages({ extras: {} as MessageProps });
-    }
+  useEvent('miluq:messages.ret', data => {
+    const extras = (data.messages as GroupMessage[]).map(
+      value =>
+        ({
+          name: value.sender.card || value.sender.nickname,
+          mine: false,
+          content: value.message.toString(),
+          role: value.sender.role
+        } as MessageProps)
+    );
+    dispatchMessages({ clean: true, extras });
   });
 
-  if (!chatType) {
+  if (isNaN(chatId)) {
     return <Navigate to="/error" />;
   }
   return (
     <ChatContext.Provider
-      value={{ chatType, chatId, dispatch: dispatchMessages }}
+      value={{ chatType: 'p', chatId, dispatch: dispatchMessages }}
     >
-      <Layout.Container>
-        <Layout.Title>
-          <ChatTitle />
-        </Layout.Title>
-        <Layout.Content useBottom>
-          {state.messages.map(props => (
-            <MessageTile key={nanoid()} {...props} />
-          ))}
-        </Layout.Content>
-        <Layout.Bottom>
-          <ChatInput />
-        </Layout.Bottom>
-      </Layout.Container>
+      <Page messages={state.messages} />
     </ChatContext.Provider>
   );
 }
 
-export default ChatPage;
+function ChatPagePrivate() {
+  const [, chatId] = useChatInfo();
+  const [state, dispatchMessages] = useReducer(reducer, { messages: [] });
+  const client = useClient();
+
+  useEffect(() => {
+    dispatchMessages({ clean: true, extras: [] });
+    client.emit('miluq:messages.query', { type: 'p', chatId });
+  }, [chatId, client]);
+
+  useEvent('message.private', data => {
+    if (data.user_id == chatId) {
+      dispatchMessages({
+        extras: {
+          name: data.sender.nickname,
+          mine: false,
+          content: data.message.toString()
+        } as MessageProps
+      });
+    }
+  });
+
+  if (isNaN(chatId)) {
+    return <Navigate to="/error" />;
+  }
+  return (
+    <ChatContext.Provider
+      value={{ chatType: 'p', chatId, dispatch: dispatchMessages }}
+    >
+      <Page messages={state.messages} />
+    </ChatContext.Provider>
+  );
+}
+
+export default {
+  Group: GroupChatPage,
+  Private: ChatPagePrivate
+};

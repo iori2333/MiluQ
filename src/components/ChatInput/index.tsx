@@ -11,7 +11,7 @@ import { MdSend } from 'react-icons/md';
 
 import { ChatContext } from '../../pages/ChatPage';
 import { AppContext } from '../../pages/AppContainer';
-import { MessageProps } from '../MessageTile';
+import { MessageProps } from '../../types/props';
 
 import MoreMenu from './MoreMenu';
 import EmojiPanel from './EmojiPanel';

@@ -1,17 +1,9 @@
-import { Box, Text, Avatar, Flex, Spacer } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Spacer, Text } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import React, { memo } from 'react';
 import './index.scss';
 import { fromNow } from '../../utils/date';
-
-export interface ChatTileProp {
-  name: string;
-  message: string;
-  lastUpdate: number;
-  avatar: string;
-  type: 'g' | 'p';
-  chatId: number;
-}
+import { ChatTileProp } from '../../types/props';
 
 function ChatTile(props: ChatTileProp) {
   const { type, chatId, avatar, name, message, lastUpdate } = props;
@@ -31,11 +23,11 @@ function ChatTile(props: ChatTileProp) {
         <Avatar size="sm" src={avatar} />
       </Box>
       <Box pl={2} minWidth="0">
-        <Flex flexDirection="row">
+        <Flex flexDirection="row" alignItems="space-between">
           <Text isTruncated>
             {name} ({chatId})
           </Text>
-          <Spacer width={24} />
+          <Spacer width="36" />
           <Text fontSize="xs" align="end">
             {fromNow(lastUpdate)}
           </Text>
