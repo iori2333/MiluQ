@@ -14,7 +14,9 @@ export interface LoginEmit {
   password: string;
 }
 
-export declare type QueryMessageEmit = DistinguishedEmit;
+export interface QueryMessageEmit extends DistinguishedEmit {
+  count: number;
+}
 
 export interface SendMessageEmit extends DistinguishedEmit {
   data: Sendable;

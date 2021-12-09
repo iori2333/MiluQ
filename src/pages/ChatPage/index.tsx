@@ -1,22 +1,28 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import Page from './Page';
-import { MessageProps } from '../../types/props';
+
 import useChatInfo from '../../hooks/useChatInfo';
-import useClient from '../../hooks/useClient';
 import useEvent from '../../hooks/useEvent';
+
 import { GroupMessage } from '../../types/messages';
+import { MessageProps } from '../../types/props';
+import { AppContext } from '../AppContainer';
+import { deserializeMessage } from '../../client/message';
 
 export const ChatContext = createContext<{
   chatType: 'g' | 'p';
   chatId: number;
-  dispatch: React.Dispatch<{ extras: MessageProps[] | MessageProps }>;
+  dispatch: React.Dispatch<{
+    clean?: boolean;
+    extras: MessageProps[] | MessageProps;
+  }>;
 }>({
+  chatId: 0,
   chatType: 'p',
-  chatId: -1,
-  dispatch: () => {
-    console.log('initializing');
+  dispatch() {
+    console.log('Loading context');
   }
 });
 
@@ -34,12 +40,7 @@ const reducer = (
 function GroupChatPage() {
   const [, chatId] = useChatInfo();
   const [state, dispatchMessages] = useReducer(reducer, { messages: [] });
-  const client = useClient();
-
-  useEffect(() => {
-    dispatchMessages({ clean: true, extras: [] });
-    client.emit('miluq:messages.query', { type: 'g', chatId });
-  }, [chatId, client]);
+  const { scrollTop } = useContext(AppContext);
 
   useEvent('message.group', data => {
     if (data.group_id == chatId) {
@@ -47,7 +48,7 @@ function GroupChatPage() {
         extras: {
           name: data.sender.card || data.sender.nickname,
           mine: false,
-          content: data.message.toString(),
+          content: deserializeMessage(data.message),
           role: data.sender.role
         } as MessageProps
       });
@@ -60,11 +61,12 @@ function GroupChatPage() {
         ({
           name: value.sender.card || value.sender.nickname,
           mine: false,
-          content: value.message.toString(),
+          content: deserializeMessage(value.message),
           role: value.sender.role
         } as MessageProps)
     );
     dispatchMessages({ clean: true, extras });
+    scrollTop();
   });
 
   if (isNaN(chatId)) {
@@ -72,7 +74,7 @@ function GroupChatPage() {
   }
   return (
     <ChatContext.Provider
-      value={{ chatType: 'p', chatId, dispatch: dispatchMessages }}
+      value={{ chatType: 'g', chatId, dispatch: dispatchMessages }}
     >
       <Page messages={state.messages} />
     </ChatContext.Provider>
@@ -82,12 +84,6 @@ function GroupChatPage() {
 function ChatPagePrivate() {
   const [, chatId] = useChatInfo();
   const [state, dispatchMessages] = useReducer(reducer, { messages: [] });
-  const client = useClient();
-
-  useEffect(() => {
-    dispatchMessages({ clean: true, extras: [] });
-    client.emit('miluq:messages.query', { type: 'p', chatId });
-  }, [chatId, client]);
 
   useEvent('message.private', data => {
     if (data.user_id == chatId) {

@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useContext, useEffect } from 'react';
+import { Box, Button } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
 
 import MessageTile from '../../components/MessageTile';
@@ -7,13 +8,31 @@ import ChatInput from '../../components/ChatInput';
 import Layout from '../Layout';
 
 import { MessageProps } from '../../types/props';
-import { Box, Button } from '@chakra-ui/react';
+
+import useClient from '../../hooks/useClient';
+
+import { ChatContext } from './index';
 
 interface PageProps {
   messages: MessageProps[];
 }
 
 function Page({ messages }: PageProps) {
+  const { chatType, chatId, dispatch } = useContext(ChatContext);
+  const client = useClient();
+
+  useEffect(() => {
+    dispatch({ clean: true, extras: [] });
+    client.emit('miluq:messages.query', { type: chatType, chatId, count: 50 });
+  }, [chatId, chatType, client, dispatch]);
+
+  const queryMessages = () =>
+    client.emit('miluq:messages.query', {
+      type: chatType,
+      chatId,
+      count: 20 + messages.length
+    });
+
   return (
     <Layout.Container>
       <Layout.Title>
@@ -21,7 +40,7 @@ function Page({ messages }: PageProps) {
       </Layout.Title>
       <Layout.Content useBottom>
         <Box alignItems="center" padding={4}>
-          <Button>Load More</Button>
+          <Button onClick={queryMessages}>Load More</Button>
         </Box>
         {messages.map(props => (
           <MessageTile key={nanoid()} {...props} />
